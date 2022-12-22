@@ -36,7 +36,7 @@ const ChildProcess = (file_name, { name_label = null, name_process = null }) => 
     processObject = null;
     setStatus();
 
-    sendSynchronizeEnableButton(focusedWindow, name_process, m.param);
+    sendSynchronizeEnableButton(focusedWindow, name_process, true);
 
     return ChildProcess;
   }
@@ -215,58 +215,6 @@ app.on('ready', async () => {
             mainWindow.restore();
           }
         });
-        tray.setContextMenu(
-          Menu.buildFromTemplate([
-            {
-              label: 'Start Synchronize',
-              type: 'normal',
-              click: () => {
-                const total_processed = Object.entries(synchronizations).map(([key, value]) => value.getStatus()).filter(value => value === true).length;
-                const total_synchronize = Object.entries(synchronizations);
-                
-                if (total_processed !== total_synchronize) {
-                  for (const key in synchronizations) {
-                    if (!synchronizations[key].getStatus()) {
-                      synchronizations[key].start();
-                    }
-                  }
-                } else {
-                  dialog.showErrorBox("Already running", "Synchronize process is already running.");
-                }
-              },
-            },
-            // {
-            //   label: 'Stop Synchronize',
-            //   type: 'normal',
-            //   click: () => {
-            //     const total_processed = Object.entries(synchronizations).map(([key, value]) => value.getStatus()).filter(value => value === true).length;
-            //     const total_synchronize = Object.entries(synchronizations);
-                
-            //     if (total_processed !== total_synchronize) {
-            //       for (const key in synchronizations) {
-            //         if (synchronizations[key].getStatus()) {
-            //           synchronizations[key].stop();
-            //         }
-            //       }
-            //     } else {
-            //       dialog.showErrorBox("Already stop.", "All synchronize has been stopped already.");
-            //     }
-            //   },
-            // },
-            {
-              type: 'separator',
-            },
-            {
-              label: 'Quit',
-              type: 'normal',
-              click: (menuItem) => {
-                mainWindow.close();
-
-                app.quit();
-              }
-            }
-          ])
-        );
       })()
         .catch(err => {
           throw err;

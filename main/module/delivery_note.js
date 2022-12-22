@@ -179,12 +179,7 @@ const handleError = (error, exit = true) => {
                     }
                   } catch (error) {
                     data.status = 'failed';
-                    await data.save();     
-                    for (const [line_index, line] of result_check_sales_order.lines.entries()) {
-                      line.status = "failed";
-
-                      await line.save();
-                    }                 
+                    await data.save();                 
                   }
                 }
 
@@ -311,6 +306,7 @@ const handleError = (error, exit = true) => {
                   lines: line_results
                 };
               } catch (error) {
+                handleMessage(error.message, true);
                 data.status = 'failed';
 
                 throw error;

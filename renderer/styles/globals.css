@@ -4,6 +4,6 @@
 
 @layer base {
     body {
-      @apply bg-indigo-900 text-white font-sans antialiased;
+      @apply bg-indigo-900 font-sans antialiased;
     }
 }

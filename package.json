@@ -1,6 +1,11 @@
 {
   "private": true,
-  "productName": "ElectronNext",
+  "author": "Ahmad Wafiq Amrillah",
+  "license": "ISC",
+  "productName": "Synchronize",
+  "name": "msi_abas_synchronize",
+  "version": "2.0.0",
+  "description": "Data Synchronize from WHS-Portal to ABAS",
   "main": "main/index.js",
   "scripts": {
     "clean": "rimraf dist renderer/.next renderer/out",
@@ -15,7 +20,16 @@
     "files": [
       "main",
       "renderer/out"
-    ]
+    ],
+    "productName": "Synchronize",
+    "appId": "mahsing.warehouse.Synchronize",
+    "win": {
+      "target": ["portable"]
+    },
+    "portable": {
+      "artifactName": "whs-portal_synchronize_portable.exe"
+    },
+    "icon": "./renderer/public/icon.png"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.13",

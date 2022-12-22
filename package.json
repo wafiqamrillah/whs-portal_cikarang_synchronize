@@ -7,6 +7,7 @@
     "start": "electron .",
     "build": "next build renderer && next export renderer",
     "pack-app": "npm run build && electron-builder --dir",
+    "rebuild": "electron-rebuild",
     "dist": "npm run build && electron-builder"
   },
   "build": {

@@ -5,9 +5,6 @@ const { join } = require('path');
 const winax = require('winax');
 const environment = require(join(__dirname, '../../env.json'));
 
-// Modules
-const workOrder = require('./workorder');
-
 function ABAS_Connection() {
     const interval = setInterval(() => {
         winax.peekAndDispatchMessages();
@@ -53,10 +50,7 @@ function ABAS_Connection() {
         connect,
         endSession,
         isConnected,
-        connection,
-        modules : {
-            workOrder
-        }
+        connection
     }    
 }
 

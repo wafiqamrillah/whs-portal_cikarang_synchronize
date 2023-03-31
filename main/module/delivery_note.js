@@ -257,27 +257,57 @@ const handleError = (error, exit = true) => {
                     return false;
                   }
             
-                  // Retrieve current data with entire sales order line data
-                  let current_abas_data = lines_sales_order.find((item) => {
+                  // Old current data 20230331 - Because it possible if in sales order has many lines with same job number
+                  // // Retrieve current data with entire sales order line data
+                  // let current_abas_data = lines_sales_order.find((item) => {
+                  //   return item.job_number == line.job_number;
+                  // });
+            
+                  // // Check if current data retrivied
+                  // if (typeof current_abas_data === "undefined") {
+                  //   line.status = 'failed';
+            
+                  //   handleMessage(`Cannot get data part with job number ${line.job_number} on sales order ${sales_order_number} has not found... (${index + 1}/${total_data})`);
+            
+                  //   return false;
+                  // }
+                              
+                  // // Check if outstanding qty is sufficient for the delivery qty
+                  // if (current_abas_data.outstanding_qty < line.delivery_qty) {
+                  //   line.abas_id = null;
+                  //   line.part_abas_id = null;
+                  //   line.status = 'failed';
+            
+                  //   handleMessage(`Current data's delivery quantity (${line.delivery_qty}) exceeds outstanding quantity (${current_abas_data.outstanding_qty}) on data with job number ${line.job_number} on sales order ${sales_order_number} has not found... (${index + 1}/${total_data})`);
+            
+                  //   return false;
+                  // }
+
+                  // Retrieve datas from entire sales order line data which has same job number
+                  let current_abas_datas = lines_sales_order.filter((item) => {
                     return item.job_number == line.job_number;
                   });
-            
+
                   // Check if current data retrivied
-                  if (typeof current_abas_data === "undefined") {
+                  if (current_abas_datas.length <= 0) {
                     line.status = 'failed';
             
-                    handleMessage(`Cannot get data part with job number ${line.job_number} on sales order ${sales_order_number} has not found... (${index + 1}/${total_data})`);
+                    handleMessage(`Cannot get data part with job number ${line.job_number} on sales order ${sales_order_number}... (${index + 1}/${total_data})`);
             
                     return false;
                   }
-            
-                  // Check if outstanding qty is sufficient for the delivery qty
-                  if (current_abas_data.outstanding_qty < line.delivery_qty) {
+                   
+                  // Check if there is any data that has outstanding qty, set as current abas data
+                  let current_abas_data = current_abas_datas.find((item) => line.job_number == item.job_number && line.delivery_qty > item.outstanding_qty);
+                  
+                  // Check if current data retrivied
+                  if (typeof current_abas_data === "undefined") {
+                    line.status = 'failed';
                     line.abas_id = null;
                     line.part_abas_id = null;
                     line.status = 'failed';
             
-                    handleMessage(`Current data's delivery quantity (${line.delivery_qty}) exceeds outstanding quantity (${current_abas_data.outstanding_qty}) on data with job number ${line.job_number} on sales order ${sales_order_number} has not found... (${index + 1}/${total_data})`);
+                    handleMessage(`Cannot get line data, because there is no data that can fulfill current data with job number ${line.job_number} delivery quantity (${line.delivery_qty}). (${index + 1}/${total_data})`);
             
                     return false;
                   }

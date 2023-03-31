@@ -4,7 +4,7 @@
   "license": "ISC",
   "productName": "Synchronize",
   "name": "msi_abas_synchronize",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Data Synchronize from WHS-Portal to ABAS",
   "main": "main/index.js",
   "scripts": {

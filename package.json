@@ -3,7 +3,7 @@
   "author": "Ahmad Wafiq Amrillah",
   "license": "ISC",
   "productName": "Synchronize",
-  "name": "msi_abas_synchronize",
+  "name": "whs_portal_synchronize",
   "version": "2.1.0",
   "description": "Data Synchronize from WHS-Portal to ABAS",
   "main": "main/index.js",

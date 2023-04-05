@@ -184,7 +184,7 @@ app.on('ready', async () => {
   setTimeout(() => {
     try {
       // Check app instance lock
-      if (!gotTheLock) throw new Error("Application has been started already.");
+      // if (!gotTheLock) throw new Error("Application has been started already.");
 
       // Connect to ABAS
       splashWindow.webContents.send('message', 'Begin ABAS session');
